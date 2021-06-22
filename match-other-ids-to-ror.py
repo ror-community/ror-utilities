@@ -19,6 +19,7 @@ def process_file(inputFile):
         reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
 
+        # TODO: add error handling
         for row in reader:
             input_id = row[0]
             search_term = '"' + input_id + '"'
@@ -30,7 +31,14 @@ def process_file(inputFile):
             c.setopt(c.WRITEFUNCTION, data.write)
             c.perform()
             response = json.loads(data.getvalue())
-            ror_id = response['items'][0]['id']
+            if response['number_of_results'] == 0:
+                ror_id = ''
+            elif response['number_of_results'] == 1:
+                ror_id = response['items'][0]['id']
+            else:
+                ror_id = ''
+                for items in response:
+                    ror_id = ror_id + ", " + response['items'][0]['id']
             matched_ids.append([input_id, ror_id])
             c.close()
 
