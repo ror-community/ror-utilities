@@ -1,4 +1,5 @@
 input/*
 output/*
+!input/example-input-ids.csv
 !input/.gitkeep
 !output/.gitkeep 
