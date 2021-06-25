@@ -27,4 +27,4 @@ To use this script:
 
         python match-other-ids-to-ror.py -f example-input-ids.csv
 
-5. A CSV file with the results will be generated in ```./output/YYYY-MM-DD-_matched_ror_ids.csv```
+5. A CSV file with the results will be generated in ```./output/YYYY-MM-DD_matched_ror_ids.csv```
