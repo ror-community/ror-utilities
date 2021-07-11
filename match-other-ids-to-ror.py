@@ -14,42 +14,44 @@ INPUT_DIR = "input/"
 OUTPUT_DIR = "output/"
 
 def process_file(inputFile):
-    matched_ids = []
-    with open(inputFile) as csv_file:
-        reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-
-        # TODO: add error handling
-        for row in reader:
-            input_id = row[0]
-            search_term = '"' + input_id + '"'
-            params = {'query': search_term}
-            c = pycurl.Curl()
-            data = BytesIO()
-            c.setopt(c.URL, ROR_API_ENDPOINT + '?' + urllib.urlencode(params))
-            c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
-            c.setopt(c.WRITEFUNCTION, data.write)
-            c.perform()
-            response = json.loads(data.getvalue())
-            if response['number_of_results'] == 0:
-                ror_id = ''
-            elif response['number_of_results'] == 1:
-                ror_id = response['items'][0]['id']
-            else:
-                ror_id = ''
-                for items in response:
-                    ror_id = ror_id + ", " + response['items'][0]['id']
-            matched_ids.append([input_id, ror_id])
-            c.close()
-
     now = datetime.now()
     output_file = OUTPUT_DIR + now.strftime("%Y-%m-%d") + "_matched_ror_ids.csv"
     fields = ['input_id', 'ror_id']
-
-    with open(output_file, 'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',')
-        writer.writerow(fields)
-        writer.writerows(matched_ids)
+    with open(inputFile) as csv_file:
+        reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        with open(output_file, 'w') as csvfile:
+            writer = csv.writer(csvfile, delimiter=',')
+            writer.writerow(fields)
+            for row in reader:
+                input_id = row[0]
+                print "Finding ROR for: " + input_id
+                search_term = '"' + input_id + '"'
+                params = {'query': search_term}
+                ror_id=''
+                try:
+                    c = pycurl.Curl()
+                    data = BytesIO()
+                    c.setopt(c.URL, ROR_API_ENDPOINT + '?' + urllib.urlencode(params))
+                    c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
+                    c.setopt(c.WRITEFUNCTION, data.write)
+                    c.perform()
+                    response = json.loads(data.getvalue())
+                    if response['number_of_results'] == 0:
+                        ror_id = ''
+                    elif response['number_of_results'] == 1:
+                        ror_id = response['items'][0]['id']
+                    else:
+                        ror_id = ''
+                        for items in response:
+                            ror_id = ror_id + ", " + response['items'][0]['id']
+                    print "Found match: " + ror_id
+                except ValueError:
+                    ror_id = 'Error'
+                    pass
+                finally:
+                    writer.writerow([input_id, ror_id])
+                    c.close()
 
 def main():
     parser = argparse.ArgumentParser()
