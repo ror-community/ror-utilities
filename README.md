@@ -8,7 +8,7 @@ Utility scripts for working with the [ROR API](https://github.com/ror-community/
 ## Match a list of other organization IDs to ROR
 The ROR API can be used to find the ROR ID equivalent for other organization identifers included the external_ids of ROR records, such Crossref Funder ID, GRID, ISNI, OrgRef and Wikidata. Not all identifier types are available for every organization and Ringgold identifiers are not available in ROR at this time.
 
-This script accepts a CSV list of other organzation IDs as input and returns a CSV with each input ID and its corresponding ROR ID as output. 
+This script accepts a CSV list of other organzation IDs as input and returns a CSV with each input ID and its corresponding ROR ID (full URL) as output. 
 
 - If no match was found for a given other ID, the ROR ID field will be blank. 
 - In the (unlikely) case the multiple matches were found, the ROR ID field will contain a comma separated list of ROR IDs.
