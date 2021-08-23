@@ -8,9 +8,9 @@ Utility scripts for working with the [ROR API](https://github.com/ror-community/
 ## Match a list of other organization IDs to ROR
 The ROR API can be used to find the ROR ID equivalent for other organization identifers included the external_ids of ROR records, such Crossref Funder ID, GRID, ISNI, OrgRef and Wikidata. Not all identifier types are available for every organization and Ringgold identifiers are not available in ROR at this time.
 
-This script accepts a CSV list of other organzation IDs as input and returns a CSV with each input ID and its corresponding ROR ID (full URL) as output. 
+This script accepts a CSV list of other organzation IDs as input and returns a CSV with each input ID and its corresponding ROR ID (full URL) as output.
 
-- If no match was found for a given other ID, the ROR ID field will be blank. 
+- If no match was found for a given other ID, the ROR ID field will be blank.
 - In the (unlikely) case the multiple matches were found, the ROR ID field will contain a comma separated list of ROR IDs.
 - If the ROR API returned an eror, the ROR ID field will contain "Error"
 
@@ -32,3 +32,17 @@ To use this script:
         python match-other-ids-to-ror.py -f example-input-ids.csv
 
 5. A CSV file with the results will be generated in ```./output/YYYY-MM-DD_matched_ror_ids.csv```
+
+## Create an organization tree based on child relationships
+
+Begining from a specific parent organization, you can create an organization tree by recursively traversing elationships with type=child.
+
+This script accepts a ROR ID as an argument, and prints an organization tree in the console, with the specified ROR ID as the top-most node in the tree.
+
+Usage:
+
+    python organization-tree.py -r 'https://ror.org/01an7q238'
+
+Note: ROR ID argument can also be specified as just the ID path, ex ```01an7q238```
+
+
