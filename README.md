@@ -8,7 +8,7 @@ Utility scripts for working with the [ROR API](https://github.com/ror-community/
 - Move to the directory you just cloned, ex ```cd ./ror-utilities```
 
 ## Search ROR API for a list of organization names
-The ROR API can be used to find records matching an organization name, alias or acronynm, either by using a simple [query parameter search](https://ror.readme.io/docs/rest-api#query-parameter) or the [affialiation matching service](https://ror.readme.io/docs/rest-api#affiliation-parameter). These scripts accept a CSV list of organization names as input and return a CSV with possible match(es) and other details, depending on which query type is used.
+The ROR API can be used to find records matching an organization name, alias or acronynm, either by using a simple [query parameter search](https://ror.readme.io/docs/rest-api#query-parameter) or the [affiliation matching service](https://ror.readme.io/docs/rest-api#affiliation-parameter). These scripts accept a CSV list of organization names as input and return a CSV with possible match(es) and other details, depending on which query type is used.
 
 Usage:
 
