@@ -55,7 +55,7 @@ Usage:
 
 ## Create an organization tree based on child relationships
 
-Begining from a specific parent organization, you can create an organization tree by recursively traversing elationships with type=child.
+Beginning from a specific parent organization, you can create an organization tree by recursively traversing relationships with type=child.
 
 This script accepts a ROR ID as an argument, and prints an organization tree in the console, with the specified ROR ID as the top-most node in the tree.
 
@@ -65,5 +65,18 @@ Usage:
 
 Note: ROR ID argument can also be specified as just the ID path, ex ```01an7q238```
 
+## Map ROR to Ringgold or vice versa via Wikidata
 
+While the ROR API does not include Ringgold IDs, it does include Wikidata IDs that lead to an organization's
+Wikidata page that sometimes lists a Ringgold ID. So one way to map the two identifiers may be using Wikidata as an intermediator.
 
+This script accepts a ROR ID as an argument, and returns candidates for the respective Ringgold ID and vice versa.
+
+Usage:
+
+    # ROR -> Ringgold:
+      python map-ringgold-via-wikidata.py -t ror -v https://ror.org/04aj4c181
+    # Ringgold -> ROR:
+      python map-ringgold-via-wikidata.py -t ringgold -v 28359
+
+Note: ROR ID argument can also be specified as just the ID path, ex ```04aj4c181```
