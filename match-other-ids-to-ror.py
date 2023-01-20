@@ -41,7 +41,6 @@ def process_file(inputFile):
                     pass
                 finally:
                     writer.writerow([input_id, ror_id])
-                    c.close()
 
 def main():
     parser = argparse.ArgumentParser()
