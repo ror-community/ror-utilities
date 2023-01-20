@@ -7,6 +7,31 @@ Utility scripts for working with the [ROR API](https://github.com/ror-community/
 - Clone/download this repository to your computer, ex ```git clone git@github.com:ror-community/ror-utilities.git```
 - Move to the directory you just cloned, ex ```cd ./ror-utilities```
 
+## Create a virtual environment & install packages
+
+1. Create a Python virtual environment using [venv](https://docs.python.org/3/library/venv.html)
+
+        python3 -m venv ~/venv
+
+venv path and directory name can be anything you like, ex ```~/ror-utilities```, but it's best to put it outside your ror-utilities repository so that you don't accidentally commit it.
+
+2. Activate the virtual environment
+
+        source ~/venv/bin/activate
+
+The virtual environment name should now appear in your command prompt, ex ```(venv)```. If you used a different path or directory name in step 1, replace ```~/venv``` with that path/directory name.
+
+3. Install required packages into the virtual environment
+
+        python -m pip install -r requirements.txt
+
+Note that this installs packages needed for all scripts in ror-utilities
+
+4. When you are finished, deactive the virtual environment (you can reactivate it by running the command in step 2 above)
+
+        deactivate
+
+
 ## Search ROR API for a list of organization names
 The ROR API can be used to find records matching an organization name, alias or acronynm, either by using a simple [query parameter search](https://ror.readme.io/docs/rest-api#query-parameter) or the [affiliation matching service](https://ror.readme.io/docs/rest-api#affiliation-parameter). These scripts accept a CSV list of organization names as input and return a CSV with possible match(es) and other details, depending on which query type is used.
 
