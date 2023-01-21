@@ -1,5 +1,9 @@
+# Input and output directories
 input/*
 output/*
 !input/example-input-ids.csv
 !input/.gitkeep
 !output/.gitkeep 
+
+# Mac junk
+.DS_Store
