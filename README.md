@@ -1,6 +1,24 @@
 # ror-utilities
 This repository contains Python utility scripts written by ROR staff and third parties that work with the [ROR API](https://github.com/ror-community/ror-api) or [ROR data](https://github.com/ror-community/ror-data) to perform various useful functions such as matching other organization identifiers to ROR IDs. Please note that these scripts are not officially supported by ROR and may be out of date with current versions of the ROR API or schema. They are provided here primarily to serve as models for those who wish to write their own ROR-related Python scripts.
 
+## List of scripts
+
+* ```fairsharing-match-scripts``` 
+	* Contributor: [Ramon Granell](https://github.com/ramGranell) of [FAIRsharing](https://fairsharing.org)
+	* [README](https://github.com/ror-community/ror-utilities/blob/main/fairsharing-match-scripts/README.md)
+	* `matching_name_shortname.py` - Accepts a CSV list of organization names, matches them to ROR records, and produces a TSV file that includes Levenshtein distances between the text strings. 
+	* `matching_urls.py` - Accepts a CSV list of organization home pages, matches them to ROR records, and produces a TSV file that includes Levenshtein distances between the text strings. 
+* ```general-scripts```
+	* [README](https://github.com/ror-community/ror-utilities/blob/main/general-scripts/README.md)
+	* `map-ringgold-via-wikidata.py` - Accepts a single ROR ID as input and suggests the corresponding Ringgold ID  when the ROR ID's corresponding Wikidata page includes a Ringgold ID. 
+	* `match-other-ids-to-ror.py` - Accepts a CSV list of other organization IDs (e.g., GRID, ISNI) as input and returns a CSV with corresponding ROR IDs.
+	* `search-by-name-affiliation.py` - Searches the ROR API for organization names from a CSV file using the ROR API [?affiliation endpoint](https://ror.readme.io/docs/match-organization-names-to-ror-ids#affiliation-parameter-approach). Does not return corresponding ROR IDs.
+	* `search-by-name-query` -  Searches the ROR API for organization names from a CSV file using the ROR API [?query endpoint](https://ror.readme.io/docs/match-organization-names-to-ror-ids#query-parameter-approach). Does not return corresponding ROR IDs.
+* ```organization-tree-scripts```
+	 * Contributor: [Sandra Mierz](https://github.com/smierz)
+	* [README](https://github.com/ror-community/ror-utilities/blob/main/organization-tree-scripts/README.md)
+	* `organization-tree.py` - This script accepts a ROR ID as an argument and prints an organization tree in the console with the specified parent ROR ID as the top-most node in the tree and child organizations as lower nodes.
+
 ## Contributing scripts
 To contribute one or more scripts to this repository, please open a pull request structured as follows:
 
