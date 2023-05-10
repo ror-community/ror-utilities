@@ -1,5 +1,5 @@
 # ror-utilities
-This repository contains Python utility scripts written by ROR staff and third parties that work with the [ROR API](https://github.com/ror-community/ror-api) or [ROR data](https://github.com/ror-community/ror-data) to perform various useful functions such as matching other organization identifiers to ROR IDs. Please note that these scripts are not officially supported by ROR and may be out of date with current versions of the ROR API or schema. They are provided here primarily to serve as models for those who wish to write their own ROR-related Python scripts.
+This repository contains Python and R utility scripts written by ROR staff and third parties that work with the [ROR API](https://github.com/ror-community/ror-api) or [ROR data](https://github.com/ror-community/ror-data) to perform various useful functions such as matching other organization identifiers to ROR IDs. Please note that these scripts are not officially supported by ROR and may be out of date with current versions of the ROR API or schema. They are provided here primarily to serve as models for those who wish to write their own ROR-related Python and R scripts.
 
 ## List of scripts
 
@@ -8,7 +8,7 @@ This repository contains Python utility scripts written by ROR staff and third p
 	* [README](https://github.com/ror-community/ror-utilities/blob/main/fairsharing-match-scripts/README.md)
 	* `matching_name_shortname.py` - Accepts a CSV list of organization names, matches them to ROR records, and produces a TSV file that includes Levenshtein distances between the text strings. 
 	* `matching_urls.py` - Accepts a CSV list of organization home pages, matches them to ROR records, and produces a TSV file that includes Levenshtein distances between the text strings. 
-* ```general-scripts```
+* ```map-match-search-scripts```
 	* [README](https://github.com/ror-community/ror-utilities/blob/main/general-scripts/README.md)
 	* `map-ringgold-via-wikidata.py` - Accepts a single ROR ID as input and suggests the corresponding Ringgold ID  when the ROR ID's corresponding Wikidata page includes a Ringgold ID. 
 	* `match-other-ids-to-ror.py` - Accepts a CSV list of other organization IDs (e.g., GRID, ISNI) as input and returns a CSV with corresponding ROR IDs.
@@ -29,7 +29,7 @@ To contribute one or more scripts to this repository, please open a pull request
 
 ## Using scripts
 
-### Prerequisites
+### Python Prerequisites
 
 - [Install and configure Python](https://wiki.python.org/moin/BeginnersGuide/Download) on your machine
 - Clone/download this repository to your computer, ex ```git clone git@github.com:ror-community/ror-utilities.git```
