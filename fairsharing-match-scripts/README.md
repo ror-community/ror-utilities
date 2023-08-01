@@ -6,7 +6,7 @@ Scripts for matching existing organisations from any database to ROR organisatio
 
 These scripts allow a user to compare and match his/her organisations to the ROR organisations. The main goal is to find if these organisations exist in the ROR database performing automatic comparisions over two different text fields (organisation name and homepage). 
 
-There are two independent scripts: 1) "matching_name_shortname.py" to compare organisations names (it also uses ROR alternative names) and 2) "matching_urls.py" to match organisation homepages. The ouput of each one of the scripts is a file with the three ROR organisations with the smallest distance from the user input organisation. Distances are based on text comparision using [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
+There are two independent scripts: 1) "matching_name_shortname.py" to compare organisations names (it also uses ROR alternative names) and 2) "matching_urls.py" to match organisation homepages. The output of each one of the scripts is a file with the three ROR organisations with the smallest distance from the user input organisation. Distances are based on text comparision using [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
 
 After the scripts are run, manually checks are recommendaded to be sure that a real match is among the closest matches. Please, note that scripts can take a long time to run if the whole ROR database is used (>100,000 organisations). Details about a real application of the scripts are in [FAIRsharing blog](https://blog.fairsharing.org/?p=239).
 
