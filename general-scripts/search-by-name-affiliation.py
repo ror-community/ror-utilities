@@ -5,10 +5,14 @@ import requests
 from os import path
 from datetime import datetime
 
-ROR_API_ENDPOINT = "https://api.dev.ror.org/organizations"
+ROR_API_ENDPOINT = "https://api.ror.org/v2/organizations"
 INPUT_DIR = "input/"
 OUTPUT_DIR = "output/"
 ES_RESERVED_CHARS = [ "+", "-", "&", "|", "!", "(", ")", "{", "}", "[", "]", "^", '"', "~", "*", "?", ":", "\\", "/" ]
+
+def extract_names_by_type(names_list, name_type):
+    """Extract name values from v2 'names' array for a given type (e.g. 'ror_display', 'alias', 'acronym', 'label')."""
+    return [entry['value'] for entry in names_list if name_type in entry.get('types', [])]
 
 def process_file(input_file):
     now = datetime.now()
@@ -38,46 +42,29 @@ def process_file(input_file):
                 match_type = ''
                 substring = ''
                 matched_field = ''
-                if query_results == 0:
-                    first_match_names = []
-                    first_match_aliases = []
-                    first_match_acronyms = []
-                    first_match_labels = []
-                else:
-                    if len(query_response['items']) <= 5:
-                        for item in query_response['items']:
-                            if(item['chosen'] == True):
-                                has_chosen_match = True
-                                match_type = item['matching_type']
-                                substring = item['substring']
-                                chosen_match_names.append(item['organization']['name'])
-                            first_match_names.append(item['organization']['name'])
-                            if len(item['organization']['aliases']) > 0:
-                                for alias in item['organization']['aliases']:
-                                    first_match_aliases.append(alias)
-                            if len(item['organization']['acronyms']) > 0:
-                                for acronym in item['organization']['acronyms']:
-                                    first_match_acronyms.append(acronym)
-                            if len(item['organization']['labels']) > 0:
-                                for label in item['organization']['labels']:
-                                    first_match_labels.append(label['label'])
-                    else:
-                        for i in range(5):
-                            if(query_response['items'][i]['chosen'] == True):
-                                has_chosen_match = True
-                                match_type = query_response['items'][i]['matching_type']
-                                substring = query_response['items'][i]['substring']
-                                chosen_match_names.append(query_response['items'][i]['organization']['name'])
-                            first_match_names.append(query_response['items'][i]['organization']['name'])
-                            if len(query_response['items'][i]['organization']['aliases']) > 0:
-                                for alias in query_response['items'][i]['organization']['aliases']:
-                                    first_match_aliases.append(alias)
-                            if len(query_response['items'][i]['organization']['acronyms']) > 0:
-                                for acronym in query_response['items'][i]['organization']['acronyms']:
-                                    first_match_acronyms.append(acronym)
-                            if len(query_response['items'][i]['organization']['labels']) > 0:
-                                for label in query_response['items'][i]['organization']['labels']:
-                                    first_match_labels.append(label['label'])
+
+                if query_results > 0:
+                    items = query_response['items']
+                    top_items = items if len(items) <= 5 else items[:5]
+
+                    for item in top_items:
+                        org = item.get('organization', {})
+                        names_list = org.get('names', [])
+
+                        if item.get('chosen') == True:
+                            has_chosen_match = True
+                            match_type = item['matching_type']
+                            substring = item['substring']
+                            # v2: use ror_display type as the primary display name
+                            display_names = extract_names_by_type(names_list, 'ror_display')
+                            if display_names:
+                                chosen_match_names.append(display_names[0])
+
+                        # v2: 'ror_display' type replaces v1 top-level 'name' field
+                        first_match_names.extend(extract_names_by_type(names_list, 'ror_display'))
+                        first_match_aliases.extend(extract_names_by_type(names_list, 'alias'))
+                        first_match_acronyms.extend(extract_names_by_type(names_list, 'acronym'))
+                        first_match_labels.extend(extract_names_by_type(names_list, 'label'))
 
                 if first_match_names:
                     if search_term in first_match_names:
@@ -107,5 +94,6 @@ def main():
         process_file(input_file)
     else:
         print("File " + input_file + " does not exist. Cannot process file.")
+
 if __name__ == '__main__':
     main()
